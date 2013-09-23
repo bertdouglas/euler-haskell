@@ -16,11 +16,11 @@ factors' :: Integer -> Integer -> [Integer] -> [Integer]
 factors' i n fs =
   let
     found = 0 == (n `mod` i)
-    stop = (i*i) > n
+    stop = (i^2) > n
   in
     case (found,stop) of
-      (True, False) -> factors' 2 (n `div` i) (i:fs)
-      (False,False) -> factors' (i+1) n fs
+      (True, False) -> factors' 2     (n `div` i) (i:fs)
+      (False,False) -> factors' (i+1) n           fs
       (_     ,True) -> n:fs
 
 factors n = factors' 2 n []
