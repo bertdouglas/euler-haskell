@@ -96,7 +96,7 @@ This reduces search effort by a factor of 44=11*2*2
 
 Then I found an empirical lower bound for the factors:
    10^n - 10^(n*0.5) + 100
-See the spreadsheet in file "4.ods".
+See the spreadsheet in file "4a.ods".
 There is no proof that the lower bound holds for larger n.  If the lower
 bound is too large, then, then the program fails, rather than give the 
 wrong solution.  So it won't mislead you.
@@ -106,16 +106,25 @@ solution is somewhat scalable.  Up to n=8 it finishes in seconds.
 For n=9 it does not finish in a minute.  
 
 Any further improvement is probably going to require a totally different 
-approach.
+approach.  One idea is to work backward from a list of all possible
+palindromes, then check each for factors. The small primes can be
+removed quickly.  What remains is a one-dimensional search.
+I suspect any big improvement will require some new insight from someone
+that knows more about number theory.
 
-Some results.  These were actually produced by a separate implementation
-coded in python.
-      91              99 [3,11]       9009
-     913 [11]        993 [3]         906609
-    9901            9999 [3,11]     99000099
-   99681 [3]       99979 [11]      9966006699
-  999001          999999 [3,11]   999000000999
- 9997647 [3,11]  9998017         99956644665999
+Some results collected mostly by hand.
+      91 (7*13)               99 (3*3*11)                     9009
+     913 (11*83)             993 (3*331)                     906609
+    9901 (9901)             9999 (3*3*11*101)               99000099
+   99681 (3*149*223)       99979 (11*61*149)               9966006699
+  999001 (19*52579)       999999 (3*3*3*7*11*13*37)       999000000999
+ 9997647 (3*11*302959)   9998017 (9998017)               99956644665999
+99990001 (99990001)     99999999 (3*3*11*73*101*137)    9999000000009999
+
+The cases for odd n and even n are distinct.  The even case seems to follow
+a very simple pattern, where one factor is as large as possible.  The 
+odd case is not so regular, but both factors seem to converge to the 
+square root of the palindrome.
 
 -}
 
