@@ -9,7 +9,6 @@
 
 -- To build:  ghc --make foo.hs
 -- To run:    ./foo
--- Output:    233168
 
 import Data.List
 

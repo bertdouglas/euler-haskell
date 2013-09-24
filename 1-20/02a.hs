@@ -12,7 +12,6 @@
 
 -- To build:  ghc --make foo.hs
 -- To run:    ./foo
--- Output:    4613732
 
 limit = 4000000
 
