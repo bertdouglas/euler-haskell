@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# compile haskell program of one source file
+# example:
+
+# ./build 12a.hs
+
+opts="
+ -O2                      \
+ -XBangPatterns           \
+ -funbox-strict-fields    \
+"
+#echo ${opts}
+ghc ${opts} --make $1
+
