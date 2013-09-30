@@ -38,22 +38,21 @@ grid =
   ]
 
 -- convert text lines to an array
-toarray :: [[Char]] -> R.Array R.U R.DIM2 Int
-toarray llc = assert valid $ R.fromListUnboxed shape ints
+toarray :: Int -> [[Char]] -> R.Array R.U R.DIM2 Int
+toarray m llc = assert valid $ R.fromListUnboxed shape ints
   where 
     n = length llc
     shape = R.Z R.:. (n :: Int) R.:. (n :: Int)
     ints :: [Int]
     ints = map read $ words $ concat llc
-    valid = (n^2) == (length ints)
+    valid = ((n^2) == (length ints)) && (m==n)
 
 
 -- get coordinates of all adjacent groups
 -- where n is dimension of square array and k is size of group
 -- example:
 -- [[(0,0),(0,1),(0,2),(0,3)],[(0,2),(0,3),(0,4),(0,5)],...]
---coords :: Int -> Int -> [a]
-coords n k = (length result, result)
+coords n k = result
   where
     range = [0..n-1] :: [Int]
     origin = [(r,c) | r <- range, c <- range]
@@ -62,22 +61,33 @@ coords n k = (length result, result)
     os = [(o,s) | o <- origin, s <- step]
     raw_coords = map (elaborate k []) os 
       where 
-        elaborate n pts os1
-          | pts==[] = elaborate (n-1)  [(or,oc)]                         os1
-          | n>0     = elaborate (n-1)  ((add (sr,sc) (head pts)):pts)    os1
+        elaborate m pts os1
+          | pts==[] = elaborate (m-1)  [(or,oc)]                         os1
+          | m>0     = elaborate (m-1)  ((add (sr,sc) (head pts)):pts)    os1
           | True    = reverse pts
             where
               ((or,oc),(sr,sc)) = os1
               add (r1,c1) (r2,c2) = (r1+r2,c1+c2)
+    in_range_x :: Int -> Bool
     in_range_x x = (0 <= x ) && (x < n)
     in_range_p (r,c) = (in_range_x r) && (in_range_x c)
     in_range_l l = all in_range_p l
-    result = nub $ filter in_range_l raw_coords
+    result :: [[(Int,Int)]]
+    result = filter in_range_l raw_coords
 
+solve arr grps = result
+  where
+    index (r,c) = R.Z R.:. r R.:. c
+    value_1 pt = arr R.! (index pt)
+    value_g pts = map value_1 pts
+    value_gs = map value_g grps
+    prods = map product value_gs
+    result = maximum prods
 
 main = do
-  -- print $ toarray grid
-  print $ coords 4 4
+  -- print $ toarray 20 grid
+  -- print $ coords 4 4
+     print $ solve (toarray 20 grid) (coords 20 4)
 
 
 
