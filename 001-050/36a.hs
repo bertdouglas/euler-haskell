@@ -37,3 +37,9 @@ main = do
   print $ filter double_palindrome [0..200]
   print $ solve 1000000
 
+{-
+Takes several seconds.  It is checking too many candidates that are not
+palindromes at all.
+-}
+
+
