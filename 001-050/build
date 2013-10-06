@@ -3,7 +3,7 @@
 # compile haskell program of one source file
 # example:
 
-# ./build 12a.hs
+# ./build 12a
 
 #  -O2                      \
 opts="
@@ -11,5 +11,5 @@ opts="
  -funbox-strict-fields    \
 "
 #echo ${opts}
-ghc ${opts} --make $1
+ghc ${opts} $1.hs -o $1.elf
 
