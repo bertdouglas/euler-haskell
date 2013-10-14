@@ -5,8 +5,9 @@
 
 # ./build 12a
 
-#  -O2                      \
+
 opts="
+ -O2                      \
  -XBangPatterns           \
  -funbox-strict-fields    \
 "
