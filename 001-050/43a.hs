@@ -38,3 +38,21 @@ main = do
   print $ dsplit "1406357289"
   print $ div_check $ dsplit "1406357289"
   print $ answer
+
+{-
+Unfortunately slow at about 35 seconds.
+Have new incremental idea.  Start with just permutations of first three
+then filter all that do not satisfy divisibility to that point
+then extend all choices with all unused digits
+then filter again, then extend again.
+
+Also push the "and" operation down, combine the splitting and checking
+so if a false is found, the rest is skipped.
+
+It would be better to work all in ints, and get rid of the strings.
+Use list of digits as ints instead of any strings/characters.  Get rid of
+any show/read.
+
+Use Int instead of Integer.
+-}
+
