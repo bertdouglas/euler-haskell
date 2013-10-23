@@ -1,4 +1,5 @@
 euler-haskell
 =============
 
-My attempt to learn how to program in Haskell by solving the problems of project Euler.
+Solving the problems of Project Euler in Haskell.
+
