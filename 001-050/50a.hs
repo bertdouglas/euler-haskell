@@ -17,26 +17,44 @@ import qualified Data.Set as Set
 
 limit = 10^6
 
--- find largest consecutive sum with n terms
-csum :: Int -> Int -> (Int,Int)
+-- maximum number of terms
+maxn = length $ takeWhile (<limit) $ scanl1 (+) primes
+
+-- all the primes we need to consider
+prs = take maxn primes
+
+-- find largest consecutive sum less than m with n terms
+csum :: Int -> Int -> Int
 csum m n = solve' n 0 0 prs prs
   where
-    prs = takeWhile (< m) primes
-    pset = Set.fromList $ prs
     solve' n ahead sum h1 h2
-      | found    = (sum,n)
-      | end      = (0,n)
+      | found    = sum
+      | end      = 0
       | filling  = solve' n (ahead+1) (sum + (head h1))             (tail h1) h2
       | synced   = solve' n (ahead+0) (sum + (head h1) - (head h2)) (tail h1) (tail h2)
         where
-          found   = synced && (Set.member sum pset)
-          end     = h1==[]
+          found   = (isPrime sum) && synced && (sum < m)
+          end     = (h1==[]) || (sum >= m)
           filling = ahead < n
           synced  = ahead==n
 
-csums = take 1000 $ map (csum limit) [2..]
+answer = head $ dropWhile (==0) $ map (csum limit) [maxn,maxn-1..]
 
 main = do
+  print maxn
   print $ csum 100 6
   print $ csum 1000 21 
-  print csums
+  print answer
+
+{-
+Runtime about 10 milliseconds.
+
+Not sure the solution is really general enough, but it gives right result
+for this problem.
+
+And my solution is kind of bulky.  Simpler is possible.
+
+I would prefer a solution using cumulative sums, of all tails of the
+infinite prime number sequence. 
+-}
+
