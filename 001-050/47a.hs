@@ -22,14 +22,14 @@ import Data.List
 solve n = solve' [1..]
   where
     solve' ns
-      | distinct && four_factors = head ns
-      | otherwise                = solve' (tail ns)
+      | distinct && n_factors = head ns
+      | otherwise             = solve' (tail ns)
       where
         nns = take n ns
         fs = map (group . primeFactors) nns
-        all_factors = foldl1 (++) fs
-        distinct = all_factors == (nub all_factors)
-        four_factors = and $ map (\x -> n == (length x)) fs
+        factors = foldl1 (++) fs
+        distinct = factors == (nub factors)
+        n_factors = and $ map (\x -> n == (length x)) fs
 
 main = do
   print $ solve 2
