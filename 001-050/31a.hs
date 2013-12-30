@@ -46,10 +46,10 @@ cstep x = cstep' x cone
 
 solve =
   length
-  $ filter (200==)
-  $ takeWhile (/=0)
-  $ map cvalue
-  $ iterate cstep cone
+    $ filter (200==)
+    $ takeWhile (/=0)
+    $ map cvalue
+    $ iterate cstep cone
 
 main = do
   print solve

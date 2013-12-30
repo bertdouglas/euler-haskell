@@ -35,10 +35,10 @@ next_id (a,b,_)
 
 solve = 
   sum $ nub $ sort
-  $ map (\(_,_,c) -> c)
-  $ filter is_pan_digital 
-  $ takeWhile (/=(0,0,0))
-  $ iterate next_id (2,2,0)
+    $ map (\(_,_,c) -> c)
+    $ filter is_pan_digital 
+    $ takeWhile (/=(0,0,0))
+    $ iterate next_id (2,2,0)
 
 main = do
   print solve
