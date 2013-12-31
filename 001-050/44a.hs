@@ -44,3 +44,15 @@ main = do
   print $ take 10 $ pairs $ map pent [1..maxn]
   print solve
 
+{-
+It would be useful to be able to generate the pairs incrementally
+and in ascending order of D.
+Runtime is about 4 seconds at maxn=10k, but never finishes for maxn=100k.
+Tried using a set instead of "is_pent", but it was slower.
+So I got lucky, but don't know how to make it better.
+-}
+
+
+
+
+
