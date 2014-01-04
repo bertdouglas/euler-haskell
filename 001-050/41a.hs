@@ -20,9 +20,7 @@ djoin s = djoin' s 0
           t = tail s
 
 solve =
-  map head
-  $ filter (/=[])
-  $ map (filter isPrime)
+  map ((take 1) . (filter isPrime))
   $ map reverse
   $ map sort
   $ map (map djoin)
