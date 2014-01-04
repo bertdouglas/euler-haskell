@@ -20,14 +20,14 @@ djoin s = djoin' s 0
           t = tail s
 
 solve =
-  take 1
-  $ filter isPrime
-  $ reverse
-  $ sort
-  $ map djoin
-  $ concat
+  map head
+  $ filter (/=[])
+  $ map (filter isPrime)
+  $ map reverse
+  $ map sort
+  $ map (map djoin)
   $ map permutations 
-  $ map (\x -> [1..x]) [1..9]
+  $ map (\x -> [1..x]) [9,8..1]
 
 main = do
   print solve
