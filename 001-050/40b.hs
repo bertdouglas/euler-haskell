@@ -48,9 +48,6 @@ solve =
   $ map (10^) [0..max_exp]
 
 main = do
-  -- print $ map dfirst [1..10]
-  -- print $ map dlast  [1..10]
-  -- print $ map dcount [1..10]
   -- print $ map champ [1..200]
   print solve
 
